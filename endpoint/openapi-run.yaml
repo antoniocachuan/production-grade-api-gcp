@@ -1,0 +1,39 @@
+swagger: '2.0'
+info:
+  title: DataHack Customer Data
+  description: Get Customer data obtained from our community
+  version: 1.0.1
+host: endpoint-service-6gehiXYXZ-uc.a.run.app
+security:
+  - api_key: []
+schemes:
+  - https
+produces:
+  - application/json
+x-google-backend:
+  address: https://endpoint-service-6gehiXYXZ-uc.a.run.app
+  protocol: h2
+paths:
+  /transactions/{id}:
+    get:
+      summary: Get Transaction Data
+      operationId: transactions_id
+      parameters:
+        - name: id
+          in: path
+          description: ID of customer
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: string
+# [START securityDef]
+securityDefinitions:
+# This section configures basic authentication with an API key.
+  api_key:
+    type: "apiKey"
+    name: "key"
+    in: "query"

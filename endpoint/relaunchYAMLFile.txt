@@ -1,0 +1,24 @@
+#1
+gcloud endpoints services deploy openapi-run3.yaml \
+  --project GCP-PROJECT-ID
+
+#2
+gcloud services enable servicemanagement.googleapis.com
+gcloud services enable servicecontrol.googleapis.com
+gcloud services enable endpoints.googleapis.com
+
+#4
+gcloud services enable endpoint-service-6geXYZW-uc.a.run.app
+
+#5
+chmod +x gcloud_build_image
+./gcloud_build_image -s endpoint-service-6geXYZW-uc.a.run.app \
+    -c 2020-06-21r1 -p healthy-display-272415
+
+#6
+gcloud run deploy endpoint-service \
+  --image="gcr.io/GCP-PROJECT-ID/endpoints-runtime-serverless:endpoint-service-6geXYZW-uc.a.run.app-2020-06-21r1" \
+  --allow-unauthenticated \
+  --platform managed \
+  --region us-central1 \
+  --project=GCP-PROJECT-ID
